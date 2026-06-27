@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #050608;
+    color: #f8fafc;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(20, 184, 166, 0.05) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.03) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* CRED Aesthetic Utilities */
+.cred-glass {
+  background: rgba(10, 12, 18, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.cred-card {
+  background: linear-gradient(135deg, rgba(20, 24, 38, 0.4) 0%, rgba(13, 16, 26, 0.5) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cred-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.cred-card:hover::before {
+  opacity: 1;
+}
+
+.cred-card:hover {
+  transform: translateY(-4px) scale(1.008);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(99, 102, 241, 0.05);
+}
+
+/* Category badging */
+.cat-badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border;
+}
+
+.cat-Food { background: rgba(239, 68, 68, 0.07); color: #f87171; border-color: rgba(239, 68, 68, 0.15); }
+.cat-Travel { background: rgba(59, 130, 246, 0.07); color: #60a5fa; border-color: rgba(59, 130, 246, 0.15); }
+.cat-Shopping { background: rgba(236, 72, 153, 0.07); color: #f472b6; border-color: rgba(236, 72, 153, 0.15); }
+.cat-Bills { background: rgba(245, 158, 11, 0.07); color: #fbbf24; border-color: rgba(245, 158, 11, 0.15); }
+.cat-EMI { background: rgba(139, 92, 246, 0.07); color: #a78bfa; border-color: rgba(139, 92, 246, 0.15); }
+.cat-Subscriptions { background: rgba(217, 70, 239, 0.07); color: #e879f9; border-color: rgba(217, 70, 239, 0.15); }
+.cat-Salary { background: rgba(16, 185, 129, 0.07); color: #34d399; border-color: rgba(16, 185, 129, 0.15); }
+.cat-Rent { background: rgba(14, 165, 233, 0.07); color: #38bdf8; border-color: rgba(14, 165, 233, 0.15); }
+.cat-Investments { background: rgba(20, 184, 166, 0.07); color: #2dd4bf; border-color: rgba(20, 184, 166, 0.15); }
+.cat-Other { background: rgba(148, 163, 184, 0.07); color: #cbd5e1; border-color: rgba(148, 163, 184, 0.15); }
+
+/* Glowing neon accents */
+.glow-indigo { box-shadow: 0 0 30px rgba(99, 102, 241, 0.15); }
+.glow-teal { box-shadow: 0 0 30px rgba(20, 184, 166, 0.12); }
+.glow-emerald { box-shadow: 0 0 30px rgba(16, 185, 129, 0.15); }
+.glow-red { box-shadow: 0 0 30px rgba(239, 68, 68, 0.15); }
+
+/* Pulse animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+@keyframes text-shine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.shine-text {
+  background: linear-gradient(to right, #ffffff, #888888, #ffffff);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: text-shine 5s linear infinite;
+}
+
+/* Custom Table style */
+.ledger-row {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.ledger-row:hover {
+  background-color: rgba(255, 255, 255, 0.015);
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .print-hide {
+    display: none !important;
+  }
+  .cred-glass, .cred-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+  }
+}
