@@ -1,116 +1,444 @@
-# RupeeRadar 🛰️
+# 🚀 RupeeRadar
 
-RupeeRadar is an AI-powered personal finance assistant that cleans, normalizes, and groups messy transaction descriptions (specifically optimized for Indian UPI tags, EMIs, and NEFT statements) to provide a premium CRED-like financial dashboard and professional PDF reports.
+> **AI-powered Personal Finance Assistant for Intelligent Bank Statement Analysis**
 
----
+RupeeRadar helps users understand where their money goes by transforming messy bank statements into meaningful financial insights.
 
-## 🚀 Live Demo & Deployment URLs
-* **Frontend Dashboard (Vercel)**: `https://your-rupee-radar.vercel.app`
-* **Backend API Gateway (Railway)**: `https://your-rupee-radar-api.up.railway.app`
+Instead of manually reviewing hundreds of UPI transactions, EMIs, subscriptions, and bank transfers, users can simply upload their bank statement and receive:
 
----
-
-## ✨ Features
-1. **Indian Statement Ingestion**: Handles raw statement exports (CSV, Excel) from major Indian banks (HDFC, SBI, ICICI) or generic structures.
-2. **Transaction Normalization**: Formats disparate date patterns, resolves debit/credit signs, and cleans transaction noise (e.g. `UPI/DR/1234567890/ZOMATO-DELHI` -> `Zomato`).
-3. **Hybrid Categorization**: Employs a fast regex rule-engine paired with **Groq API Llama-3.1-8b-instant** JSON structured fallback.
-4. **CRED-Inspired UX**: Beautiful glassmorphic UI, responsive tables, metallic metrics cards with mouse-tracking shine highlights, and custom cards for subscriptions.
-5. **Subscription & EMI Tracker**: Grouping checks identify repeating debits that occur within 28-32 day cadences with $\pm 10\%$ amount variance.
-6. **One-Click PDF Export**: Clean, print-styled stylesheet wrapper compiling all analysis, AI observations, recurring lists, and full ledger lists into a professional report.
+- 📊 Spending analytics
+- 🏷️ Automatic expense categorization
+- 🔁 Recurring payment detection
+- 💰 Income vs Expense analysis
+- 📈 Monthly spending trends
+- 🤖 AI-generated financial insights
+- 📄 Downloadable financial reports
 
 ---
 
-## 🛠️ Technology Stack
-* **Frontend**: React (v19) + TypeScript + Tailwind CSS (v3) + Vite + Recharts
-* **Backend**: FastAPI + Python (v3.11+) + Pandas + SQLite
-* **Database**: SQLite (Local) / SQLAlchemy ORM (support for PostgreSQL)
-* **LLM Layer**: Groq Python SDK (`llama-3.1-8b-instant`)
+# 🌟 Why RupeeRadar?
+
+Modern banking has become digital, but understanding personal finances is still difficult.
+
+A typical bank statement contains:
+
+- UPI IDs
+- Reference numbers
+- Merchant codes
+- Long transaction descriptions
+- Mixed debit/credit formats
+
+Most users cannot quickly answer questions like:
+
+- Where did I spend most of my money?
+- Which subscriptions am I paying for?
+- How much did I save this month?
+- Which expenses are recurring?
+- What was my biggest expense?
+
+RupeeRadar solves this problem using AI and intelligent data processing.
 
 ---
 
-## 📁 Folder Structure
+# ✨ Features
+
+### 📂 Upload Bank Statements
+
+- CSV Support
+- Excel Support
+- Generic bank statement parsing
+- Optimized for Indian banking formats
+
+---
+
+### 🧹 Transaction Cleaning
+
+Automatically converts messy transaction descriptions into readable merchant names.
+
+Example
+
+```
+UPI/DR/9876543210/ZOMATO-DELHI
+```
+
+↓
+
+```
+Zomato
+```
+
+---
+
+### 🤖 AI-powered Categorization
+
+Hybrid categorization engine using:
+
+- Rule-based engine
+- Merchant dictionary
+- Groq Llama 3.1 fallback
+
+Categories include:
+
+- Food
+- Shopping
+- Travel
+- Bills
+- Salary
+- Investments
+- EMI
+- Rent
+- Subscriptions
+- Others
+
+---
+
+### 🔁 Recurring Payment Detection
+
+Automatically detects:
+
+- Netflix
+- Spotify
+- EMIs
+- SIPs
+- Insurance
+- Rent
+- Electricity bills
+
+using frequency and amount similarity.
+
+---
+
+### 📊 Financial Dashboard
+
+Interactive dashboard includes:
+
+- Total Income
+- Total Expenses
+- Savings
+- Savings Rate
+- Top Spending Categories
+- Monthly Trends
+- Largest Transactions
+
+---
+
+### 📈 Spending Analytics
+
+Visual reports with:
+
+- Pie Charts
+- Bar Charts
+- Monthly Trends
+- Category Distribution
+
+---
+
+### 📄 PDF Report Export
+
+Generate a clean financial report including:
+
+- Summary
+- Charts
+- Insights
+- Recurring Payments
+- Transaction History
+
+---
+
+# 🏗️ System Architecture
+
+```
+                Bank Statement
+                     │
+                     ▼
+         CSV / Excel Upload
+                     │
+                     ▼
+          Transaction Parsing
+                     │
+                     ▼
+      Cleaning & Normalization
+                     │
+                     ▼
+     AI Expense Categorization
+                     │
+                     ▼
+    Recurring Payment Detection
+                     │
+                     ▼
+ Financial Metrics & Analytics
+                     │
+                     ▼
+       Dashboard + PDF Report
+```
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Recharts
+
+## Backend
+
+- FastAPI
+- Python 3.11
+- Pandas
+- SQLAlchemy
+
+## Database
+
+- SQLite
+- PostgreSQL Ready
+
+## AI
+
+- Groq API
+- Llama 3.1 8B Instant
+
+---
+
+# 📂 Project Structure
+
 ```
 rupee-radar/
-├── docs/                      # Foundational system architecture
-│   ├── problemStatement.txt   # Core challenge constraints
-│   ├── context.md             # Project parameters and objectives
-│   ├── architecture.md        # Technical architecture details
-│   ├── implementation-plan.md # Phase details
-│   └── edge-cases.md          # Edge-case error resolution checklist
-├── backend/                   # FastAPI Server & Ingestion Pipelines
+
+├── backend/
 │   ├── app/
-│   │   ├── api/
-│   │   ├── models/            # SQLAlchemy schemas
-│   │   ├── pipeline/          # cleaner, categorizer, recurring, metrics pipelines
-│   │   └── main.py            # Entry point
-│   ├── tests/
-│   │   └── fixtures/          # Mock statements (CSV)
-│   ├── requirements.txt
-│   └── Dockerfile             # Production deployment instruction
-├── frontend/                  # React Frontend Dashboard
+│   ├── models/
+│   ├── pipeline/
+│   ├── api/
+│   └── main.py
+│
+├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── App.tsx            # App core components
-│   │   └── index.css          # Tailwind CSS directives & CRED effects
-│   ├── tailwind.config.js
-│   ├── vercel.json            # Vercel SPA routing
-│   └── package.json
-├── docker-compose.yml         # Container configuration
+│   ├── components/
+│   ├── assets/
+│   └── App.tsx
+│
+├── docs/
+│   ├── architecture.md
+│   ├── context.md
+│   ├── implementation-plan.md
+│   ├── edge-cases.md
+│   └── problemStatement.md
+│
+├── screenshots/
+│
+├── docker-compose.yml
+│
 └── README.md
 ```
 
 ---
 
-## ⚙️ Installation & Running
+# 📸 Screenshots
 
-### 1. Run the Backend API
-Navigate to the `backend/` directory:
-```bash
-# Install dependencies
-pip install -r requirements.txt
+## Dashboard
 
-# Start local server
-uvicorn app.main:app --reload --port 8000
+> Add screenshot here
+
 ```
-API runs on `http://localhost:8000`. API docs can be viewed at `http://localhost:8000/docs`.
-
-### 2. Run the Frontend Dashboard
-Navigate to the `frontend/` directory:
-```bash
-# Install packages
-npm install
-
-# Run Vite dev server
-npm run dev
+screenshots/dashboard.png
 ```
-Web app runs on `http://localhost:3000`.
 
 ---
 
-## 📖 API Documentation
+## Analytics
 
-The RESTful API is exposed under `/api/v1`:
+> Add screenshot here
 
-* **`POST /api/v1/upload`**
-  * *Purpose*: Uploads a bank statement.
-  * *Payload*: Multipart Form-Data (file).
-  * *Response*: `{ "session_id": "UUID", "status": "ready" }`
+```
+screenshots/analytics.png
+```
 
-* **`GET /api/v1/sessions/{id}/transactions`**
-  * *Purpose*: Returns the full list of standardized cleaned transactions.
+---
 
-* **`PATCH /api/v1/sessions/{id}/transactions/{txn_id}`**
-  * *Purpose*: Manually overrides a transaction's category. Instantly triggers backend database recalculation for metrics and insights.
-  * *Payload*: `{ "category": "Food" }`
+## AI Insights
 
-* **`GET /api/v1/sessions/{id}/analytics`**
-  * *Purpose*: Returns metrics (inflow, outflow, savings, rate), monthly trends datasets, and biggest cash flow records.
+> Add screenshot here
 
-* **`GET /api/v1/sessions/{id}/insights`**
-  * *Purpose*: Returns narrative AI advisor observations.
+```
+screenshots/insights.png
+```
 
-* **`GET /api/v1/sessions/{id}/recurring`**
-  * *Purpose*: Returns identified subscription and EMI groups.
+---
 
-* **`DELETE /api/v1/sessions/{id}`**
-  * *Purpose*: Purges all session data immediately for safety.
+## Upload Page
+
+> Add screenshot here
+
+```
+screenshots/upload.png
+```
+
+---
+
+# ⚙️ Local Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/gaurav-product/rupee-radar.git
+
+cd rupee-radar
+```
+
+---
+
+## Backend
+
+```bash
+cd backend
+
+pip install -r requirements.txt
+
+uvicorn app.main:app --reload
+```
+
+Backend:
+
+```
+http://localhost:8000
+```
+
+Swagger Documentation:
+
+```
+http://localhost:8000/docs
+```
+
+---
+
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+Frontend:
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/v1/upload` | Upload bank statement |
+| GET | `/api/v1/sessions/{id}/transactions` | View cleaned transactions |
+| PATCH | `/api/v1/sessions/{id}/transactions/{txn_id}` | Update category |
+| GET | `/api/v1/sessions/{id}/analytics` | Financial analytics |
+| GET | `/api/v1/sessions/{id}/insights` | AI insights |
+| GET | `/api/v1/sessions/{id}/recurring` | Recurring payments |
+| DELETE | `/api/v1/sessions/{id}` | Delete session |
+
+---
+
+# 🤖 AI Workflow
+
+RupeeRadar follows a hybrid AI pipeline.
+
+```
+Transaction
+
+↓
+
+Rule Engine
+
+↓
+
+Merchant Dictionary
+
+↓
+
+Groq AI
+
+↓
+
+Category Prediction
+
+↓
+
+Financial Insights
+```
+
+This approach minimizes AI calls while maintaining accurate categorization.
+
+---
+
+# 🔒 Privacy
+
+Financial information is sensitive.
+
+RupeeRadar is designed with privacy in mind:
+
+- No permanent storage of uploaded statements
+- Session-based processing
+- Minimal data shared with AI services
+- Support for automatic session deletion
+
+---
+
+# 🚀 Future Roadmap
+
+- PDF Statement Parsing
+- OCR Support
+- Budget Planner
+- Spending Forecasting
+- Personalized AI Financial Advisor
+- Investment Insights
+- Mobile Application
+- Multi-language Support
+
+---
+
+# 👨‍💻 Author
+
+**Gaurav Kumar Singh**
+
+Aspiring Product Manager | AI Builder | Healthcare & Wellness Innovator
+
+GitHub
+
+https://github.com/gaurav-product
+
+LinkedIn
+
+(Add your LinkedIn profile here)
+
+---
+
+# ⭐ Support
+
+If you found this project interesting:
+
+⭐ Star this repository
+
+🍴 Fork it
+
+💡 Share your feedback
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🎯 Built For
+
+This project was built as part of an AI Engineering Challenge focused on solving real-world financial problems using Artificial Intelligence, FastAPI, React, and Large Language Models.
